@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentTime = formatter.format(new Date());
         currentTimeDisplay.textContent = currentTime;
     }
+    
+        try {
+            const formatter = new Intl.DateTimeFormat([], options);
+        } catch (error) {
+            console.error("Помилка форматування дати: ", error); 
+        }
+
 
     // Оновлення часу щосекунди
     setInterval(updateTime, 1000);
