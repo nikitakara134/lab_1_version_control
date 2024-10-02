@@ -11,24 +11,22 @@ document.addEventListener('DOMContentLoaded', function() {
             second: 'numeric',
             hour12: false
         };
-        const formatter = new Intl.DateTimeFormat([], options);
-        const currentTime = formatter.format(new Date());
-        currentTimeDisplay.textContent = currentTime;
-    }
-    
+
         try {
             const formatter = new Intl.DateTimeFormat([], options);
+            const currentTime = formatter.format(new Date());
+            currentTimeDisplay.textContent = currentTime;
         } catch (error) {
-            console.error("Помилка форматування дати: ", error); 
+            console.error("Error formatting date: ", error);
         }
+    }
 
-
-    // Оновлення часу щосекунди
+    // Update time every second
     setInterval(updateTime, 1000);
 
-    // Оновлення часу при зміні часової зони
+    // Update time when the timezone changes
     timezoneSelector.addEventListener('change', updateTime);
 
-    // Ініціалізація часу при завантаженні сторінки
+    // Initialize time on page load
     updateTime();
 });
