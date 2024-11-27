@@ -1,30 +1,27 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const timezoneSelector = document.getElementById('timezone');
-    const currentTimeDisplay = document.getElementById('current-time');
-    
-    try {
-        // Створення форматувальника часу
-        const selectedTimezone = timezoneSelector.value;
-        const options = {
-            timeZone: selectedTimezone,
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: false
-        };
-        const formatter = new Intl.DateTimeFormat([], options);
-        const currentTime = formatter.format(new Date());
-        currentTimeDisplay.textContent = currentTime;
-    } catch (error) {
-        console.error("Помилка форматування дати: ", error); 
-    }
+// 2.test.js
+const fs = require('fs');
+const path = require('path');
+const { updateTime } = require('./2.js'); // Ось тут ми правильно імпортуємо updateTime
 
-    // Оновлення часу щосекунди
-    setInterval(updateTime, 1000);
+// Завантажуємо HTML файл
+const html = fs.readFileSync(path.resolve(__dirname, '1.html'), 'utf8');
 
-    // Оновлення часу при зміні часової зони
-    timezoneSelector.addEventListener('change', updateTime);
+// Мокаємо документ в jsdom
+global.document = new (require('jsdom')).JSDOM(html).window.document;
 
-    // Ініціалізація часу при завантаженні сторінки
-    updateTime();
+describe('Time zone app', () => {
+    it('should select the correct timezone', () => {
+        const timezoneSelector = document.getElementById('timezone');
+        expect(timezoneSelector).not.toBeNull(); // Перевірка, чи елемент існує
+    });
+
+    it('should update the time display', () => {
+        const currentTimeDisplay = document.getElementById('current-time');
+        expect(currentTimeDisplay).not.toBeNull(); // Перевірка, чи елемент існує
+    });
+
+    it('should fail when updateTime function has an error', () => {
+        // Перевіряємо, чи функція updateTime викликає помилку
+        expect(() => updateTime()).toThrowError('currentTim is not defined'); // Перевірка на конкретну помилку
+    });
 });
