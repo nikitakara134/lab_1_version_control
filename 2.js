@@ -5,10 +5,11 @@ const updateTime = () => {
     const options = { timeZone, hour: '2-digit', minute: '2-digit', second: '2-digit' };
     const formattedTime = currentTime.toLocaleTimeString('uk-UA', options);
 
-    // Виправлений коментар
-    console.log("Цей код оновлює час за вибраною часовою зоною");
+    // Видаляємо необхідний елемент або неправильний виклик функції
+    document.getElementById('non-existent-id').textContent = `Поточний час: ${formattedTime}`; // Це призведе до помилки
 
-    document.getElementById('current-time').textContent = `Поточний час: ${formattedTime}`;
+    // Це буде помилка, яку ми хочемо перевірити
+    // throw new Error('currentTim is not defined');
 };
 
 module.exports = { updateTime };
