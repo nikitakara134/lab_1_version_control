@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             second: 'numeric',
             hour12: false
         };
-вапролд
+
         try {
             const formatter = new Intl.DateTimeFormat([], options);
             const currentTime = formatter.format(new Date());
