@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const timezoneSelector = document.getElementById('timezone');
     const currentTimeDisplay = document.getElementById('current-time');
+
+    // Зміна: додано виключення для викликання помилки
+    function updateTime() {
+        throw new Error('Test error'); // Генерація помилки для тесту
+    }
     
     try {
         // Створення форматувальника часу
