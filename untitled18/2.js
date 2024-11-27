@@ -11,17 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
             second: 'numeric',
             hour12: false
         };
-        const formatter = new Intl.DateTimeFormat([], options);
-        const currentTime = formatter.format(new Date());
-        currentTimeDisplay.textContent = currentTime;
-    }
-    
+
         try {
             const formatter = new Intl.DateTimeFormat([], options);
+            const currentTime = formatter.format(new Date());
+            currentTimeDisplay.textContent = currentTime;
         } catch (error) {
-            console.error("Помилка форматування дати: ", error); 
+            console.error("Помилка форматування дати: ", error);
         }
-
+    }
 
     // Оновлення часу щосекунди
     setInterval(updateTime, 1000);
